@@ -1,0 +1,34 @@
+from django.urls import path
+
+from .views import (
+    ShopFrontView,
+    AddToCart,
+    CartView,
+    PlaceOrder,
+    OrderListView,
+    SelectAddressView,
+    AddAddressForUserView,
+)
+
+app_name = "smplshop.shop"
+urlpatterns = [
+    path("<str:shop>/", view=ShopFrontView.as_view(), name="shop_front"),
+    path(
+        "<str:shop>/cart/add/<uuid:product_uuid>/",
+        view=AddToCart.as_view(),
+        name="add_to_cart",
+    ),
+    path("<str:shop>/cart/", view=CartView.as_view(), name="cart"),
+    path(
+        "<str:shop>/cart/address",
+        view=SelectAddressView.as_view(),
+        name="select_address",
+    ),
+    path(
+        "<str:shop>/cart/address/add",
+        view=AddAddressForUserView.as_view(),
+        name="add_address",
+    ),
+    path("<str:shop>/cart/order/", view=PlaceOrder.as_view(), name="place_order"),
+    path("<str:shop>/orders/", view=OrderListView.as_view(), name="customer_orders"),
+]

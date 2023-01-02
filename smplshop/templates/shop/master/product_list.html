@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block content %}
+    <a href="{% url 'smplshop.shop.master:add_product' %}"
+       class="btn btn-primary">{% translate "Add" %}</a>
+    <div class="container">
+        <table id="list-table" class="list-table table table-hover w-auto">
+            <tr>
+                {% for field in fields %}<th>{{ field }}</th>{% endfor %}
+            </tr>
+            {% for obj in object_list %}
+                <tr>
+                    <td>{{ obj.code }}</td>
+                    <td>{{ obj.name }}</td>
+                    <td>{{ obj.price }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% load static i18n %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <title>
+            {% block title %}
+                {% translate "SmplShop" %}
+            {% endblock title %}
+        </title>
+        {% include '__include.html' %}
+    </head>
+    <body>
+        <div class="mb-1">{% include 'shop/__shop_menu.html' %}</div>
+        <div class="container" id="main_body">
+            {% bootstrap_messages %}
+            {% block content %}
+                <p>Use this document as a way to quick start any new project.</p>
+            {% endblock content %}
+        </div>
+        {% block modal %}
+        {% endblock modal %}
+        {% block inline_javascript %}
+            {% comment %}
+    Script tags with only code, no src (defer by default). To run
+    with a "defer" so that you run inline code:
+    <script>window.addEventListener('DOMContentLoaded', () => {/* Run whatever you want */ });</script>
+            {% endcomment %}
+        {% endblock inline_javascript %}
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static i18n %}
+{% block content %}
+    <a href="{% url 'smplshop.shop:add_address' shop=request.shop.code %}"
+       class="btn btn-secondary">{% translate "Add New Address" %}</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <input type="submit"
+               class="btn btn-primary"
+               value='{% translate "Place Order" %}'>
+    </form>
+{% endblock content %}

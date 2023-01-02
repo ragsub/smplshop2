@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    <a href="{% url 'smplshop.shop:add_shop_details' %}"
+       class ="btn btn-primary">Add</a>
+    {{ object_list }}
+{% endblock content %}
