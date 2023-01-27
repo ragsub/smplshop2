@@ -37,6 +37,12 @@ class UserSignupForm(SignupForm):
     Check UserSocialSignupForm for accounts created from social.
     """
 
+    def save(self, request):
+        new_user = super().save(request)
+        new_user_logic = ShopForUserLogic(user=new_user)
+        new_user_logic.add_buyer_shop(request.shop)
+        return new_user
+
 
 class UserSocialSignupForm(SocialSignupForm):
     """

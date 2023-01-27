@@ -4,3 +4,15 @@ class ShopNotFoundException(Exception):
 
 class CartNotFoundException(Exception):
     pass
+
+
+class InputNotvalidException(Exception):
+    pass
+
+
+class OrderNotFoundException(Exception):
+    pass
+
+
+class IncorrectInputsException(Exception):
+    pass

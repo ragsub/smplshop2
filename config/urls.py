@@ -19,7 +19,8 @@ urlpatterns = [
     path("tenant/", include("smplshop.users.tenant.urls")),
     path("accounts/", include("allauth.urls")),
     path("shop/", include("smplshop.shop.urls")),
-    path("shop1/master/", include("smplshop.shop.master.urls")),
+    path("master/", include("smplshop.shop.master.urls")),
+    path("transaction/", include("smplshop.shop.transaction.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

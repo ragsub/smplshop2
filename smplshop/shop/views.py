@@ -1,12 +1,15 @@
 import uuid
+from django.contrib import messages
 from django.views.generic import ListView, View, CreateView
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import gettext_lazy as _
 
 from .master.models import Product, Address
 from .master.logic import AddressForUserLogic, ProductLogic
 from .transaction.logic import CartLogic, OrderLogic
+from .transaction.models import Order
 from .logic import ShopFrontLogic
 from .exceptions import ProductNotFoundException
 from .forms import SelectAddressForm
@@ -65,7 +68,11 @@ class CartView(View):
 
 
 class OrderListView(LoginRequiredMixin, ListView):
-    pass
+    model = Order
+    template_name: str = "shop/orders.html"
+
+    def get_queryset(self):
+        return OrderLogic.get_order_by_user(user=self.request.user)
 
 
 class SelectAddressView(LoginRequiredMixin, View):
@@ -90,11 +97,22 @@ class SelectAddressView(LoginRequiredMixin, View):
             request.POST, addresses=self.address_for_user.get_all_address_for_user()
         )
         if form.is_valid():
-            order_address = form.cleaned_data["address"]
+            order_user_address = form.cleaned_data["address"]
             if CartLogic.is_cart_available(request=request):
                 cart_logic = CartLogic(request)
 
-            order = OrderLogic(cart=CartLogic.get_cart(), address=order_address)
+            print(order_user_address.address)
+
+            order_logic = OrderLogic(
+                request=request, address=order_user_address.address
+            )
+            order = order_logic.get_order()
+            messages.success(request, _("Order " + str(order.uuid) + " created"))
+            return redirect(
+                reverse(
+                    "smplshop.shop:customer_orders", kwargs={"shop": request.shop.code}
+                )
+            )
 
 
 class AddAddressForUserView(LoginRequiredMixin, CreateView):

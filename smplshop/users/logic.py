@@ -29,6 +29,10 @@ class ShopForUserLogic:
         self.user.shop.add(shop, through_defaults={"role": "owner"})
         return
 
+    def add_buyer_shop(self, shop: Shop):
+        self.user.shop.add(shop, through_defaults={"role": "buyer"})
+        return
+
     def has_current_shop(self):
         return (
             True

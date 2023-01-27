@@ -1,10 +1,10 @@
 from django.urls import path
+from allauth.account.views import SignupView
 
 from .views import (
     ShopFrontView,
     AddToCart,
     CartView,
-    PlaceOrder,
     OrderListView,
     SelectAddressView,
     AddAddressForUserView,
@@ -12,6 +12,7 @@ from .views import (
 
 app_name = "smplshop.shop"
 urlpatterns = [
+    path("<str:shop>/signup/", view=SignupView.as_view(), name="signup_buyer"),
     path("<str:shop>/", view=ShopFrontView.as_view(), name="shop_front"),
     path(
         "<str:shop>/cart/add/<uuid:product_uuid>/",
@@ -29,6 +30,5 @@ urlpatterns = [
         view=AddAddressForUserView.as_view(),
         name="add_address",
     ),
-    path("<str:shop>/cart/order/", view=PlaceOrder.as_view(), name="place_order"),
     path("<str:shop>/orders/", view=OrderListView.as_view(), name="customer_orders"),
 ]
