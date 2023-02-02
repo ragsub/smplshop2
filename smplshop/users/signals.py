@@ -18,5 +18,3 @@ def add_tenant_to_user(sender, request: HttpRequest, user: User, *args, **kwargs
         shop = shop_for_user.get_shop()
         if shop is not None:
             shop_for_user.set_current_shop(shop)
-        else:
-            raise Http404("{}{}".format(_("No shop is mapped to User:"), user))
