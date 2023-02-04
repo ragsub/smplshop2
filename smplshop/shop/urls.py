@@ -12,7 +12,6 @@ from .views import (
 
 app_name = "smplshop.shop"
 urlpatterns = [
-    path("<str:shop>/signup/", view=SignupView.as_view(), name="signup_buyer"),
     path("<str:shop>/", view=ShopFrontView.as_view(), name="shop_front"),
     path(
         "<str:shop>/cart/add/<uuid:product_uuid>/",

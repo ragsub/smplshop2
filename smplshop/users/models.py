@@ -65,7 +65,6 @@ class UserToShop(Model):
         (_("owner"), _("Store Owner")),
         (_("manager"), _("Store Manager")),
         (_("shipper"), _("Store Delivery")),
-        (_("buyer"), _("Store Buyer")),
     ]
 
     shop = ForeignKey(
@@ -75,7 +74,7 @@ class UserToShop(Model):
     user = ForeignKey(to=User, on_delete=CASCADE)
 
     role = CharField(
-        verbose_name=_("Role"), max_length=20, choices=ROLES, default="buyer"
+        verbose_name=_("Role"), max_length=20, choices=ROLES, default="shipper"
     )
 
     class Meta:
